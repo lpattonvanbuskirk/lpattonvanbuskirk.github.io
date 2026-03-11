@@ -1,0 +1,11 @@
+---
+layout: none
+---
+
+[
+{% for file in site.static_files %}
+  {% if file.path contains '/assets/' and file.extname == '.txt' %}
+    "{{ file.name }}"{% unless forloop.last %},{% endunless %}
+  {% endif %}
+{% endfor %}
+]

@@ -7,7 +7,7 @@ layout: none
 {% for file in site.static_files %}
   {% if file.path contains "/assets/" %}
     {% assign parts = file.path | split: "/" %}
-    {% assign folder = parts[2] %}
+    {% assign folder = parts[1] %}
     {% unless folders contains folder %}
       {% assign folders = folders | push: folder %}
     {% endunless %}

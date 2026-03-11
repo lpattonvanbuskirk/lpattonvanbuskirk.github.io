@@ -2,17 +2,26 @@
 layout: none
 ---
 
-{% assign folders = site.static_files | map: "path" | join: "," | split: "/assets/" %}
-{% assign folders = folders | map: "split: '/'" | map: "first" | uniq %}
+{% assign folders = "" | split: "" %}
+
+{% for file in site.static_files %}
+  {% if file.path contains "/assets/" %}
+    {% assign parts = file.path | split: "/" %}
+    {% assign folder = parts[2] %}
+    {% unless folders contains folder %}
+      {% assign folders = folders | push: folder %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
 
 [
-{% for f in folders %}
+{% for folder in folders %}
 {
-  "folder":"{{ f }}",
-  "title":"assets/{{ f }}/title.txt",
-  "description":"assets/{{ f }}/desc.txt",
-  "date":"assets/{{ f }}/date.txt",
-  "image":"assets/{{ f }}/img.png"
+  "folder": "{{ folder }}",
+  "title": "assets/{{ folder }}/title.txt",
+  "description": "assets/{{ folder }}/desc.txt",
+  "date": "assets/{{ folder }}/date.txt",
+  "image": "assets/{{ folder }}/img.png"
 }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]

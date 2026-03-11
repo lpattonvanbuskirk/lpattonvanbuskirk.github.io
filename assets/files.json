@@ -2,10 +2,9 @@
 layout: none
 ---
 
-{[
-{% for file in site.static_files %}
-  {% if file.path contains '/assets/' and file.extname == '.txt' %}
-    "{{ file.name }}"{% unless forloop.last %},{% endunless %}
-  {% endif %}
+[
+{% assign assets = site.static_files | where_exp: "file", "file.path contains '/assets/'" %}
+{% for file in assets %}
+  "{{ file.name }}"{% unless forloop.last %},{% endunless %}
 {% endfor %}
-]}
+]

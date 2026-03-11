@@ -3,8 +3,26 @@ layout: none
 ---
 
 [
-{% assign assets = site.static_files | where_exp: "file", "file.path contains '/assets/'" %}
-{% for file in assets %}
-  "{{ file.name }}"{% unless forloop.last %},{% endunless %}
+{% assign folders = site.static_files | map: "path" | join: "," | split: "/assets/" %}
+{% assign seen = "" %}
+
+{% for file in site.static_files %}
+  {% if file.path contains "/assets/" %}
+    {% assign parts = file.path | split: "/" %}
+    {% assign folder = parts[2] %}
+
+    {% unless seen contains folder %}
+      {% assign seen = seen | append: folder | append: "," %}
+
+{
+  "folder": "{{ folder }}",
+  "title": "assets/{{ folder }}/title.txt",
+  "description": "assets/{{ folder }}/desc.txt",
+  "date": "assets/{{ folder }}/date.txt",
+  "image": "{% for img in site.static_files %}{% if img.path contains folder and (img.extname == '.png' or img.extname == '.jpg' or img.extname == '.jpeg') %}{{ img.path | remove_first: '/' }}{% endif %}{% endfor %}"
+}{% unless forloop.last %},{% endunless %}
+
+    {% endunless %}
+  {% endif %}
 {% endfor %}
 ]

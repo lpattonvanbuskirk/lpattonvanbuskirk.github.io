@@ -13,32 +13,26 @@
 </div> 
   <div class="cards" id="cards">
       <script>
-fetch("http://10.0.0.183:1337/api/artworks?populate=*", {headers: {'Authorization': 'Bearer 0784952332c279fc269a5d1c36bdd9789356368f0825b65084b8073fa849c2bdd12f460939da5d115d46d606681e34968f57bca04178feb5ebb7c857103c5e82950b695e754ced0fdc0a5847a347385ad5f056fba95fb9adf12662ec9d15cae476e6e8274cd2f41dc223cc6e95e7e169e0cfb9ad09412ced8de40052d522e63d'}})
-  .then(res => res.json())
-  .then(json => {
-    const artworks = json.data;
-    const cards = document.getElementById("cards");
-    artworks.forEach(item => {
-      fetch(`http://10.0.0.183:1337/api/upload/files?filters[name][$eq]=${item.Image.name}`, {headers: {'Authorization': 'Bearer 0784952332c279fc269a5d1c36bdd9789356368f0825b65084b8073fa849c2bdd12f460939da5d115d46d606681e34968f57bca04178feb5ebb7c857103c5e82950b695e754ced0fdc0a5847a347385ad5f056fba95fb9adf12662ec9d15cae476e6e8274cd2f41dc223cc6e95e7e169e0cfb9ad09412ced8de40052d522e63d'}})
-      .then(res => res.json())
-        .then(json => {
-        console.log(json[0].url);
- const div = document.createElement("div");
-      div.innerHTML = `
-<img src="https://10.0.0.183${json[0].url}" alt="${item.title}">
-    <div class="container">
-      <h4><b>${item.Title}</b></h4>
-      <p>${item.Description}</p>
-    </div>
-`;
-      div.classList.add('card');
-      cards.appendChild(div);
+fetch("index.json")
+.then(res => res.json())
+.then(data => {
+  const cards = document.getElementById("cards");
 
-        })
-      
-         });
+  data.forEach(item => {
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.title}">
+      <div class="container">
+        <h4><b>${item.title}</b></h4>
+        <p>${item.description}</p>
+      </div>
+    `;
+
+    div.classList.add("card");
+    cards.appendChild(div);
   });
-      </script>
+});      </script>
   </div>
   <div class="footer">
       <br>

@@ -12,26 +12,42 @@
   </div>
 </div> 
   <div class="cards" id="cards">
-      <script>
-fetch("assets/index.json")
-.then(res => res.json())
-.then(data => {
-  const cards = document.getElementById("cards");
+<script>
+async function loadGallery() {
 
-  data.forEach(item => {
-    const div = document.createElement("div");
+  const container = document.getElementById("cards");
 
-    div.innerHTML = `
-      <img src="${item.image}" alt="${item.title}">
+  const folders = await fetch("assets/artworks/index.json")
+    .then(r => r.json());
+
+  for (const folder of folders) {
+
+    const base = `assets/artworks/${folder}`;
+
+    const title = await fetch(`${base}/title.txt`).then(r => r.text());
+    const desc  = await fetch(`${base}/desc.txt`).then(r => r.text());
+    const date  = await fetch(`${base}/date.txt`).then(r => r.text());
+
+    const img = `${base}/img.png`;
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${img}">
       <div class="container">
-        <h4><b>${item.title}</b></h4>
-        <p>${item.description}</p>
+        <h4><b>${title}</b></h4>
+        <p>${desc}</p>
+        <small>${date}</small>
       </div>
     `;
 
-    div.classList.add("card");
-    cards.appendChild(div);
-  });
+    container.appendChild(card);
+  }
+}
+
+loadGallery();
+</script>
 });      </script>
   </div>
   <div class="footer">

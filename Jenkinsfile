@@ -22,7 +22,7 @@ pipeline {
                     desc=$(cat "$dir/desc.txt")
                     date=$(cat "$dir/date.txt")
 
-                    image=$(ls "$dir" | grep -E '\\.(png|jpg|jpeg|gif)$')
+                    image=dir$(ls "$dir" | grep -E '\\.(png|jpg|jpeg|gif)$')
 
                     echo "{
                         \\"title\\": \\"$title\\",

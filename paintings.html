@@ -99,7 +99,7 @@ gap: 100px 100px;
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
   background-color: white;
-  flex: 1 0 300px;
+//  flex: 1 0 300px;
   width: 280px;
   max-width: 100%;
 }
@@ -123,40 +123,49 @@ img {
 
   padding: 2px 16px;
 }
-
-#about {
-  font-size: 4rem;
-  font-family: sans-serif;
-  text-align: center;
-}
     </style>
   </head>
   <body>
 <div class="header">
   <a href="#default" class="logo">EDEN NISAM</a>
   <div class="header-right">
-    <a class="active" href="index.html">ABOUT</a>
-    <a  href="paintings.html">PAINTINGS</a>
+     <a  href="index.html">ABOUT</a>
+    <a  class="active" href="paintings.html">PAINTINGS</a>
     <a  href="sculptures.html">SCULPTURES</a>
-  </div> 
-    </div>
-    <div id="about">
-    <script>
-fetch("http://10.0.0.203:1337/api/about-page?populate=*", {headers: {'Authorization': 'Bearer 0784952332c279fc269a5d1c36bdd9789356368f0825b65084b8073fa849c2bdd12f460939da5d115d46d606681e34968f57bca04178feb5ebb7c857103c5e82950b695e754ced0fdc0a5847a347385ad5f056fba95fb9adf12662ec9d15cae476e6e8274cd2f41dc223cc6e95e7e169e0cfb9ad09412ced8de40052d522e63d'}})
+  </div>
+</div> 
+  <div class="cards" id="cards">
+      <script>
+fetch("http://10.0.0.183:1337/api/artworks?populate=*", {headers: {'Authorization': 'Bearer 0784952332c279fc269a5d1c36bdd9789356368f0825b65084b8073fa849c2bdd12f460939da5d115d46d606681e34968f57bca04178feb5ebb7c857103c5e82950b695e754ced0fdc0a5847a347385ad5f056fba95fb9adf12662ec9d15cae476e6e8274cd2f41dc223cc6e95e7e169e0cfb9ad09412ced8de40052d522e63d'}})
   .then(res => res.json())
   .then(json => {
-    aboutContainer = document.getElementById("about");
-    text = document.createElement("p");
-    text.innerHTML = `${json.data.Description}`;
-    aboutContainer.appendChild(text);
-  });
-      
-  
-      </script>
+    const artworks = json.data;
+    const cards = document.getElementById("cards");
+    artworks.forEach(item => {
+      fetch(`http://10.0.0.183:1337/api/upload/files?filters[name][$eq]=${item.Image.name}`, {headers: {'Authorization': 'Bearer 0784952332c279fc269a5d1c36bdd9789356368f0825b65084b8073fa849c2bdd12f460939da5d115d46d606681e34968f57bca04178feb5ebb7c857103c5e82950b695e754ced0fdc0a5847a347385ad5f056fba95fb9adf12662ec9d15cae476e6e8274cd2f41dc223cc6e95e7e169e0cfb9ad09412ced8de40052d522e63d'}})
+      .then(res => res.json())
+        .then(json => {
+        console.log(json[0].url);
+ const div = document.createElement("div");
+      div.innerHTML = `
+<img src="https://10.0.0.183${json[0].url}" alt="${item.title}">
+    <div class="container">
+      <h4><b>${item.Title}</b></h4>
+      <p>${item.Description}</p>
     </div>
+`;
+      div.classList.add('card');
+      cards.appendChild(div);
+
+        })
+      
+         });
+  });
+      </script>
+  </div>
   <div class="footer">
       <br>
-      <a href='mailto:ENISAM@depaul.edu?subject=Hello'>EMAIL</a>
+ <a href='mailto:ENISAM@depaul.edu?subject=Hello'>EMAIL</a>
       <a href='https://instagram.com/eden_does/'>Instagram @eden.does</a>
     </div>
   </body>

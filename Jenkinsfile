@@ -22,13 +22,14 @@ pipeline {
                     desc=$(cat "$dir/desc.txt")
                     date=$(cat "$dir/date.txt")
 
-                    image=dir$(ls "$dir" | grep -E '\\.(png|jpg|jpeg|gif)$')
+                    image=$(ls "$dir" | grep -E '\.(png|jpg|jpeg|gif)$' | head -n 1)
+                    image_path="$dir/$image"
 
                     echo "{
                         \\"title\\": \\"$title\\",
                         \\"description\\": \\"$desc\\",
                         \\"date\\": \\"$date\\",
-                        \\"image\\": \\"$dir/$image\\"
+                        \\"image\\": \\"$image_path\\"
                     }," >> $OUTPUT
                 done
 

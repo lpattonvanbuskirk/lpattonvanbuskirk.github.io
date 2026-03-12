@@ -1,39 +1,53 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="style.css">  
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
 <div class="header">
   <a href="#default" class="logo">EDEN NISAM</a>
   <div class="header-right">
-    <a  href="index.html">ABOUT</a>
-    <a  href="paintings.html">PAINTINGS</a>
-    <a class="active" href="sculptures.html">SCULPTURES</a>
+     <a  href="index.html">ABOUT</a>
+    <a  class="active" href="paintings.html">PAINTINGS</a>
+    <a  href="sculptures.html">SCULPTURES</a>
   </div>
 </div> 
   <div class="cards" id="cards">
-      <script>
-        fetch("index.json")
-        .then(res => res.json())
-        .then(data => {
-          const cards = document.getElementById("cards");
-        
-          data.forEach(item => {
-            const div = document.createElement("div");
-        
-            div.innerHTML = `
-              <img src="${item.image}" alt="${item.title}">
-              <div class="container">
-                <h4><b>${item.title}</b></h4>
-                <p>${item.description}</p>
-              </div>
-            `;
-        
-            div.classList.add("card");
-            cards.appendChild(div);
-          });
-        });      
-    </script>
+<script>
+async function loadGallery() {
+
+  const container = document.getElementById("cards");
+
+  const folders = await fetch("assets/sculptures/index.json")
+    .then(r => r.json());
+
+  for (const folder of folders) {
+
+    const base = `assets/artworks/${folder}`;
+
+    const title = await fetch(`${base}/title.txt`).then(r => r.text());
+    const desc  = await fetch(`${base}/desc.txt`).then(r => r.text());
+    const date  = await fetch(`${base}/date.txt`).then(r => r.text());
+
+    const img = `${base}/img.png`;
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${img}">
+      <div class="container">
+        <h4><b>${title}</b></h4>
+        <p>${desc}</p>
+        <small>${date}</small>
+      </div>
+    `;
+
+    container.appendChild(card);
+  }
+}
+
+loadGallery();
+</script>
   </div>
   <div class="footer">
       <br>
@@ -42,3 +56,6 @@
     </div>
   </body>
 </html>
+
+
+<!--idk the proper way to force a rebuild with jenkins so i'm comitting this to force a rebuild because i have ZERO, and i mean, ZERO clue as to what i was doing-->

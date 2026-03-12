@@ -17,7 +17,7 @@ pipeline {
 
                 echo "[" > $OUTPUT
 
-                for dir in $ART_DIR/*; do
+                for dir in assets/artworks/*/; do
                     title=$(cat "$dir/title.txt")
                     desc=$(cat "$dir/desc.txt")
                     date=$(cat "$dir/date.txt")

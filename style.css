@@ -139,7 +139,31 @@ a {
 }
 
 .card .container {
-  padding: 2px 16px;
+  padding: 10px 15px;
+  background-color: #fff; /* subtle contrast with shadow */
+}
+
+/* Title */
+.card h4 {
+  font-size: 1.1rem;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Description */
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+}
+
+/* Date */
+.card small {
+  display: block;
+  font-size: 0.85rem;
+  color: #888;
 }
 
 

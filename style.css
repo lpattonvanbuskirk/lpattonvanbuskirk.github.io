@@ -7,6 +7,16 @@ html, body {
   flex-direction: column;
 }
 
+body {
+    overflow: auto; /* content can still scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
 main {
   flex: 1;
 }

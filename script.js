@@ -19,10 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target === lightbox) closeLightbox();
   });
 
-
   async function loadGallery(jsonPath) {
     const container = document.getElementById("cards");
-    container.innerHTML = ""; // clear existing cards
+    container.innerHTML = "";
 
     const folders = await fetch(jsonPath).then((r) => r.json());
 
@@ -39,6 +38,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     items.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    function formatDate(isoDate) {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return new Date(isoDate).toLocaleDateString(undefined, options);
+    }
+
     for (const item of items) {
       const card = document.createElement("div");
       card.className = "card";
@@ -47,11 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="container">
           <h4><b>${item.title}</b></h4>
           <p>${item.desc}</p>
-          <small>${item.date}</small>
+          <small>${formatDate(item.date)}</small>
         </div>
       `;
       container.appendChild(card);
-
       card.querySelector("img").addEventListener("click", () => {
         openLightbox(item.img, item.title);
       });

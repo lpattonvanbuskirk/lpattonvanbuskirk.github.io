@@ -1,4 +1,3 @@
-
 html, body {
   height: 100%;
   margin: 0;
@@ -8,13 +7,13 @@ html, body {
 }
 
 body {
-    overflow: auto; /* content can still scroll */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
 }
 
 main {
@@ -110,21 +109,25 @@ a {
   }
 }
 
-
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 40px auto;
 }
 
 .card {
   background-color: white;
   border-radius: 5px;
-  width: 280px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 280px;
+  justify-self: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: 0.3s;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s forwards;
 }
 
 .card:hover {
@@ -136,14 +139,13 @@ a {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   width: 100%;
+  cursor: pointer;
 }
 
 .card .container {
   padding: 10px 15px;
-  background-color: #fff; /* subtle contrast with shadow */
 }
 
-/* Title */
 .card h4 {
   font-size: 1.1rem;
   margin: 0 0 5px 0;
@@ -151,28 +153,30 @@ a {
   color: #222;
 }
 
-/* Description */
 .card p {
   font-size: 0.95rem;
   color: #555;
   line-height: 1.4;
   margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
-/* Date */
 .card small {
   display: block;
   font-size: 0.85rem;
   color: #888;
 }
 
-
 .footer {
   width: 100%;
   padding: 40px 0;
   display: flex;
   justify-content: center;
-  background: none; /* clean, transparent */
+  background: none;
 }
 
 .footer a {
@@ -182,8 +186,6 @@ a {
   line-height: 25px;
   border-radius: 0;
   font-family: Helvetica, sans-serif;
-  float: none;
-  background: none;
 }
 
 .footer a:hover {
@@ -195,7 +197,7 @@ a {
 }
 
 .lightbox {
-  display: none; /* hidden by default */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -207,7 +209,6 @@ a {
   z-index: 1000;
 }
 
-/* Make it a flex container to center image */
 .lightbox img {
   max-width: 90%;
   max-height: 90%;
@@ -215,7 +216,6 @@ a {
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-/* Close button */
 .lightbox-close {
   position: absolute;
   top: 20px;
@@ -224,4 +224,15 @@ a {
   color: white;
   cursor: pointer;
   user-select: none;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

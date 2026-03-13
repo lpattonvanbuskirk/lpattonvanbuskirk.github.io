@@ -111,18 +111,16 @@ a {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, 280px);
+  justify-content: center;
   gap: 24px;
   padding: 0 20px;
-  max-width: 1200px;
   margin: 40px auto;
 }
-
 .card {
   background-color: white;
   border-radius: 5px;
   width: 100%;
-  max-width: 280px;
   justify-self: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   opacity: 0;

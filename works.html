@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Eden Nisam | Sculptor & Painter</title>
+    <meta name="description" content="Portfolio of Eden Nisam, sculptor and painter exploring organic forms and textures. View artworks and sculptures online.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  <main>
+  <header class="header">
+    <a href="#default" class="logo">EDEN NISAM</a>
+    <nav class="header-right">
+      <a href="index.html">ABOUT</a>
+      <a class="active" href="works.html">WORKS</a>
+      <a href="exhibitions.html">EXHIBITIONS</a>
+
+    </nav>
+  </header>
+
+  <div class="cards" id="cards">
+
+  </div>
+</main>
+  <div class="footer">
+      <br>
+ <a href='mailto:ENISAM@depaul.edu?subject=Hello'>EMAIL</a>
+      <a href='https://instagram.com/eden_does/'>INSTAGRAM</a>
+    </div>
+  <div id="lightbox" class="lightbox">
+  <span id="lightbox-close" class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Full view">
+</div>
+<script src="script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  loadGallery("assets/artworks/index.json");
+});
+</script>
+  </body>
+</html>
+
+

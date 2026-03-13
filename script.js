@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // Only declare these once per page
+document.addEventListener("DOMContentLoaded", function () {
   let lightbox = document.getElementById("lightbox");
   let lightboxImg = document.getElementById("lightbox-img");
   let lightboxClose = document.getElementById("lightbox-close");
@@ -16,22 +15,22 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   lightboxClose.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", e => {
+  lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Function to load any gallery JSON (paintings, sculptures, etc.)
   async function loadGallery(jsonPath) {
     const container = document.getElementById("cards");
-    container.innerHTML = ""; // clear existing cards
+    container.innerHTML = ""; 
 
-    const folders = await fetch(jsonPath).then(r => r.json());
+    const folders = await fetch(jsonPath).then((r) => r.json());
 
     for (const folder of folders) {
-      const base = `${jsonPath.replace("index.json","")}${folder}`;
-      const title = await fetch(`${base}/title.txt`).then(r => r.text());
-      const desc = await fetch(`${base}/desc.txt`).then(r => r.text());
-      const date = await fetch(`${base}/date.txt`).then(r => r.text());
+      const base = `${jsonPath.replace("index.json", "")}${folder}`;
+
+      const title = await fetch(`${base}/title.txt`).then((r) => r.text());
+      const desc = await fetch(`${base}/desc.txt`).then((r) => r.text());
+      const date = await fetch(`${base}/date.txt`).then((r) => r.text());
       const img = `${base}/img.png`;
 
       const card = document.createElement("div");
@@ -46,14 +45,11 @@ document.addEventListener("DOMContentLoaded", function() {
       `;
       container.appendChild(card);
 
-      // Attach lightbox click **immediately after creating the img**
       card.querySelector("img").addEventListener("click", () => {
         openLightbox(img, title);
       });
     }
   }
 
-  // Load the page’s gallery JSON
-  // Example: paintings page
-  // Example for sculptures page: loadGallery("assets/sculptures/index.json");
+  window.loadGallery = loadGallery;
 });

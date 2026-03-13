@@ -21,39 +21,7 @@
   </header>
 
   <main>
-    <section class="cards" id="cards">
-      <script>
-        async function loadGallery() {
-          const container = document.getElementById("cards");
-          const folders = await fetch("assets/exhibitions/index.json").then(r => r.json());
-
-          for (const folder of folders) {
-            const base = `assets/sculptures/${folder}`;
-            const title = await fetch(`${base}/title.txt`).then(r => r.text());
-            const desc  = await fetch(`${base}/desc.txt`).then(r => r.text());
-            const date  = await fetch(`${base}/date.txt`).then(r => r.text());
-            const img = `${base}/img.png`;
-
-            const card = document.createElement("div");
-            card.className = "card";
-
-            card.innerHTML = `
-              <img src="${img}" alt="${title}">
-              <div class="container">
-                <h4><b>${title}</b></h4>
-                <p>${desc}</p>
-                <small>${date}</small>
-              </div>
-            `;
-
-            container.appendChild(card);
-
-          }
-        }
-
-        loadGallery();
-      </script>
-    </section>
+    <section class="cards" id="cards"></section>
   </main>
 
   <footer class="footer">
@@ -66,5 +34,8 @@
   <img id="lightbox-img" src="" alt="Full view">
 </div>
       <script src="script.js"></script>
+<script>
+  loadGallery("assets/exhibitions/index.json"); // paintings page
+</script>
 </body>
 </html>

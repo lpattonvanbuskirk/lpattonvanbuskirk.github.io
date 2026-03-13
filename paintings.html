@@ -31,10 +31,12 @@
   <span id="lightbox-close" class="lightbox-close">&times;</span>
   <img id="lightbox-img" src="" alt="Full view">
 </div>
-      <script src="script.js"></script>
+<script src="script.js"></script>
 <script>
-  loadGallery("assets/paintings/index.json");
-  </script>
+document.addEventListener("DOMContentLoaded", function() {
+  loadGallery("assets/artworks/index.json");
+});
+</script>
   </body>
 </html>
 

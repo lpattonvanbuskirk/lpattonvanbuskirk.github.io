@@ -46,11 +46,14 @@ document.addEventListener("DOMContentLoaded", function() {
       `;
       container.appendChild(card);
 
+      // Attach lightbox click **immediately after creating the img**
+      card.querySelector("img").addEventListener("click", () => {
+        openLightbox(img, title);
+      });
     }
   }
 
   // Load the page’s gallery JSON
   // Example: paintings page
-  loadGallery("assets/artworks/index.json");
   // Example for sculptures page: loadGallery("assets/sculptures/index.json");
 });

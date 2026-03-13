@@ -1,66 +1,63 @@
-<html>
-  <head>
-     <title>Eden Nisam | Sculptor & Painter</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Eden Nisam | Sculptor & Painter</title>
   <meta name="description" content="Portfolio of Eden Nisam, sculptor and painter exploring organic forms and textures. View artworks and sculptures online.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="#default" class="logo">EDEN NISAM</a>
+    <nav class="header-right">
+      <a href="index.html">ABOUT</a>
+      <a href="paintings.html">PAINTINGS</a>
+      <a class="active" href="sculptures.html">SCULPTURES</a>
+      <a href="exhibitions.html">SCULPTURES</a>
+    </nav>
+  </header>
+
   <main>
-<div class="header">
-  <a href="#default" class="logo">EDEN NISAM</a>
-  <div class="header-right">
-     <a  href="index.html">ABOUT</a>
-    <a   href="paintings.html">PAINTINGS</a>
-    <a  class="active" href="sculptures.html">SCULPTURES</a>
-  </div>
-</div> 
-  <div class="cards" id="cards">
-<script>
-async function loadGallery() {
+    <section class="cards" id="cards">
+      <script>
+        async function loadGallery() {
+          const container = document.getElementById("cards");
+          const folders = await fetch("assets/sculptures/index.json").then(r => r.json());
 
-  const container = document.getElementById("cards");
+          for (const folder of folders) {
+            const base = `assets/sculptures/${folder}`;
+            const title = await fetch(`${base}/title.txt`).then(r => r.text());
+            const desc  = await fetch(`${base}/desc.txt`).then(r => r.text());
+            const date  = await fetch(`${base}/date.txt`).then(r => r.text());
+            const img = `${base}/img.png`;
 
-  const folders = await fetch("assets/sculptures/index.json")
-    .then(r => r.json());
+            const card = document.createElement("div");
+            card.className = "card";
 
-  for (const folder of folders) {
+            card.innerHTML = `
+              <img src="${img}" alt="${title}">
+              <div class="container">
+                <h4><b>${title}</b></h4>
+                <p>${desc}</p>
+                <small>${date}</small>
+              </div>
+            `;
 
-    const base = `assets/sculptures/${folder}`;
+            container.appendChild(card);
+          }
+        }
 
-    const title = await fetch(`${base}/title.txt`).then(r => r.text());
-    const desc  = await fetch(`${base}/desc.txt`).then(r => r.text());
-    const date  = await fetch(`${base}/date.txt`).then(r => r.text());
+        loadGallery();
+      </script>
+    </section>
+  </main>
 
-    const img = `${base}/img.png`;
+  <footer class="footer">
+    <a href="mailto:ENISAM@depaul.edu?subject=Hello">EMAIL</a>
+    <a href="https://instagram.com/eden_does/">INSTAGRAM</a>
+  </footer>
 
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img src="${img}">
-      <div class="container">
-        <h4><b>${title}</b></h4>
-        <p>${desc}</p>
-        <small>${date}</small>
-      </div>
-    `;
-
-    container.appendChild(card);
-  }
-}
-
-loadGallery();
-</script>
-  </div>
-</main>
-  <div class="footer">
-      <br>
- <a href='mailto:ENISAM@depaul.edu?subject=Hello'>EMAIL</a>
-      <a href='https://instagram.com/eden_does/'>INSTAGRAM</a>
-    </div>
-  </body>
+</body>
 </html>
-
-
-<!--idk the proper way to force a rebuild with jenkins so i'm comitting this to force a rebuild because i have ZERO, and i mean, ZERO clue as to what i was doing-->

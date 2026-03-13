@@ -1,138 +1,80 @@
+
 html, body {
   height: 100%;
   margin: 0;
-}
-
-body {
+  font-family: Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
 }
 
-/* Style the header with some padding */
+main {
+  flex: 1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .header {
-  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px 10px;
 }
 
-.footer {
-  width: 100%;
-  padding: 40px 0;
-  display: flex;
-  justify-content: center;
-}
-
-/* Footer links */
-.footer a {
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-.footer a:hover {
-  color: gray;
-}
-/* Style the header links */
 .header a {
-  float: left;
   color: black;
-  text-align: center;
   padding: 12px;
-  text-decoration: none;
   font-size: 18px;
   line-height: 25px;
-  cursor: pointer;
-  background:
-    linear-gradient(black 0 0) bottom / 0% 2px no-repeat
-    #fff;
   transition: 0.2s;
 }
 
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a:hover {
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.header a.active {
+  color: grey;
+  border-bottom: 2px solid grey;
+}
+
 .header a.logo {
   font-size: 25px;
   font-weight: bold;
 }
 
-/* Change the background color on mouse-over */
-.header a:hover {
-  color: black;
-  background-size:100% 2px;
-}
-
-/* Style the active/current link*/
-.header a.active {
-  color: grey;
-  background-size:100% 2px;
-}
-
-/* Float the link section to the right */
 .header-right {
-  float: right;
+  display: flex;
+  gap: 10px;
 }
 
-/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
 @media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .header-right a {
+    width: 100%;
     text-align: left;
   }
-  .header-right {
-    float: none;
-  }
-}
-
-.cards {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-evenly;
-gap: 100px 100px;
-}
-
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  border-radius: 5px; /* 5px rounded corners */
-  background-color: white;
-  width: 280px;
-  max-width: 100%;
-}
-
-/* Add rounded corners to the top left and the top right corner of the image */
-img {
-  border-radius: 5px 5px 0 0;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  width: 100%;
-
-}
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-/* Add some padding inside the card container */
-.container {
-
-  padding: 2px 16px;
-}
-
-main {
-  flex: 1; /* pushes footer down if content is short */
 }
 
 .about {
+  display: flex;
+  gap: 40px;
   max-width: 1000px;
   margin: 60px auto;
   padding: 20px;
 }
-
 
 .about-photo img {
   width: 300px;
@@ -146,7 +88,6 @@ main {
   line-height: 1.6;
 }
 
-/* Stack layout for narrow screens */
 @media (max-width: 800px) {
   .about {
     flex-direction: column;
@@ -157,4 +98,64 @@ main {
   .about-photo img {
     width: 250px;
   }
+}
+
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 100px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 5px;
+  width: 280px;
+  max-width: 100%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card img {
+  border-radius: 5px 5px 0 0;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card .container {
+  padding: 2px 16px;
+}
+
+
+.footer {
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  background: none; /* clean, transparent */
+}
+
+.footer a {
+  color: black;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 0;
+  font-family: Helvetica, sans-serif;
+  float: none;
+  background: none;
+}
+
+.footer a:hover {
+  color: gray;
+}
+
+.footer a + a {
+  margin-left: 20px;
 }

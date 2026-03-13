@@ -39,8 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
     items.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     function formatDate(isoDate) {
+      const [year, month, day] = isoDate.split("-").map(Number);
+      const date = new Date(year, month - 1, day);
       const options = { year: "numeric", month: "long", day: "numeric" };
-      return new Date(isoDate).toLocaleDateString(undefined, options);
+      return date.toLocaleDateString(undefined, options);
     }
 
     for (const item of items) {

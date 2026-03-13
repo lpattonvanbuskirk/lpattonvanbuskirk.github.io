@@ -47,6 +47,9 @@
             `;
 
             container.appendChild(card);
+            card.querySelector("img").addEventListener("click", () => {
+  openLightbox(img, title);
+});
           }
         }
 
